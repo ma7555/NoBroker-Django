@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<section class="probootstrap-cover overflow-hidden relative"  style="background-image: url('{% static 'images/bg_25.jpg'%}');" data-stellar-background-ratio="0.5" id="section-home">
+      <div class="overlay"></div>
+      <div class="container container-table" style="margin-top: -40px;">
+          <div class="row vertical-center-row">
+          <div align="center">
+          <div id="form-col" class="col-md-10 probootstrap-animate" style="width: 50%;">
+            <form action="/results" method="POST" class="probootstrap-form probootstrap-form-box mb60">
+              {% csrf_token %}
+              <div class="form-group">
+                {{ form.lease_type }}
+                {% for error in form.lease_type.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+              </div>
+              <div class="form-group">
+                {{ form.furnished.label_tag }}
+                {{ form.furnished}}
+                {% for error in form.furnished.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+              </div>
+              <div class="form-group">
+                {{ form.rooms }}
+                {% for error in form.rooms.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+              </div>
+              <button type="submit" class="btn btn-primary">Calculate</button>
+            </form>
+          </div>
+        </div>
+      </div>
+        </div>    
+    </section>
+    <!-- END section -->
+    <section class="probootstrap_section" id="section-feature-testimonial">
+      <div class="container">
+        <div class="row justify-content-center mb-5">
+          <div class="col-md-12 text-center mb-5 probootstrap-animate">
+            <h2 class="display-4 border-bottom probootstrap-section-heading">Why we Love NoBroker</h2>
+            <blockquote class="">
+              <p class="lead mb-4"><em>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</em></p>
+            </blockquote>
+
+          </div>
+        </div>
+        
+      </div>
+    </section>
+    <footer class="probootstrap_section probootstrap-border-top">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-md-3">
+            <h3 class="probootstrap_font-18 mb-3">Quick Links</h3>
+            <ul class="list-unstyled">
+              <li><a href="{% url 'mainapp:index'%}" target="_blank">Home</a></li>
+              <li><a href="{% url 'mainapp:calculate_property'%}" target="_blank">Property</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="row pt-5">
+          <div class="col-md-12 text-center">
+            <p class="probootstrap_font-14">&copy; 2017. All Rights Reserved. <br> Designed &amp; Developed by <a href="https://uicookies.com/" target="_blank">uiCookies</a><small> (Don't remove credit link on this footer. See <a href="https://uicookies.com/license/">license</a>)</small></p>
+            <p class="probootstrap_font-14">Demo Images: <a href="https://unsplash.com/" target="_blank">Unsplash</a></p>
+          </div>
+        </div>
+      </div>
+    </footer>
+{% endblock %}
