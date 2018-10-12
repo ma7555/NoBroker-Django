@@ -22,7 +22,7 @@
                     {{property.rooms}}
                   </div>
                   <div class="col-md-6">
-                    <a href="{% url 'mainapp:property_page' 2 property.id %}">More Details</a>
+                    <a href="{% url 'mainapp:property_page' request.user.id property.id %}">More Details</a>
                   </div>
                 </div>
               </div>

@@ -43,7 +43,7 @@
               {% csrf_token %}
               {{ form }}
               {{ form.errors }}
-{{ form.non_field_errors }}
+              {{ form.non_field_errors }}
              <center><div class="form-group">
                 <a href="{% url 'login' %}">Already Registered ?</a><br>
                 <button type="submit" class="btn btn-primary">Register</button>

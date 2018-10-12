@@ -27,21 +27,23 @@ def calculate_property(request):
 	if request.method == 'POST':
 		form = PropertyRent(request.POST)
 		if form.is_valid():
-			print('Doing things')
+			#To save but not commit and hence we can add more values
 			form = form.save(commit=False)
 			form.rent = '5000000'
+			#The whole user object has to be passed
 			form.landlord = request.user
+			#Finally commiting after doing changes
 			form.save()
+			#To for a reverse url/dynamic url
 			return redirect('mainapp:property_page',property_id=form.id,user_id=request.user.id)
 		else:
-			print('Nor Done')
 			return render(request,'landlord/property.html',{'form':form})
 	form = PropertyRent()
 	return render(request,'landlord/property.html',{'form':form})
 
 @login_required
 def landlord_properties(request):
-	properties_list = Properties.objects.all()
+	properties_list = Properties.objects.filter(pk=request.user.id)
 	return render(request,'landlord/lproperties.html',{'properties':properties_list})
 
 @login_required
@@ -51,21 +53,33 @@ def custom_property_page(request, user_id, property_id):
 
 @login_required
 def landlord_enquiries(request):
-	return render(request,'landlord/lenquiries.html')
+	enquiries = Enquiries.objects.filter(enquirer=request.user)
+	return render(request,'landlord/lenquiries.html',{'enquiries':enquiries})
 
 #Views for Tenant Section
 @login_required
 def tenant_enquiries(request):
-	return render(request, 'tenant/uenquiries.html')
+	enquiries = Enquiries.objects.filter(enquirer=request.user)
+	return render(request,'landlord/lenquiries.html',{'enquiries':enquiries})
 
 #Views for home page
 def index(request):
+	if request.method == 'POST':
+		form = SearchForm(request.POST)
+		if form.is_valid():
+			lease_type = form.cleaned_data['lease_type']
+			furnished = form.cleaned_data['furnished']
+			rooms = form.cleaned_data['rooms']
+			print(rooms)
+			properties = Properties.objects.filter(rooms=rooms)
+			return render(request,'home/results.html',{'properties':properties})
+		else:
+			return render(request,'home/search.html',{'form':form})
 	form = SearchForm()
-	return render(request, 'home/search.html',{'form':form})
+	return render(request,'home/search.html',{'form':form})
 
 def search_result(request):
-	properties = None
-	return render(request, 'home/results.html',{'properties':properties})
+	return render(request, 'home/results.html')
 
 def contact(request):
 	return render(request, 'home/contact.html')
