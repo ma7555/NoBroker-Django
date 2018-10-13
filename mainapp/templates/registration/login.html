@@ -42,6 +42,8 @@
         <div class="row vertical-center-row">
           <div align="center">
           <div id="form-col" class="col-md-6 probootstrap-animate">
+            {{ form.errors }}
+            {{ form.non_field_errors }}
             <form action="" method="POST" class="probootstrap-form probootstrap-form-box mb60">
               {% csrf_token %}
               <div class="form-group">

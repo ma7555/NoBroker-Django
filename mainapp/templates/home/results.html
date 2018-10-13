@@ -20,12 +20,16 @@
                 </div>
                 <div class="row">
                   <div class="col-md-6">
-                    {{property.rooms}}
-                    {{property.lease_type}}
-                    {{property.furnished}}
+                    Rooms : {{property.rooms}}
+                    Lease Type: {{property.lease_type}}
+                    Furnished: {{property.furnished}}
                   </div>
                   <div class="col-md-6">
-                    <a href="{% url 'mainapp:property_page' 0 property.id %}">More Details</a>
+                    {% if request.user.groups.all.0.name == 'tenant' %}
+                    <a href="{% url 'mainapp:tenant_property_page' request.user.id property.id %}">More Details</a>
+                    {% else %}
+                    <a href="{% url 'mainapp:search_property_page' property.id %}">More Details</a>
+                    {% endif %}
                   </div>
                 </div>
               </div>

@@ -16,7 +16,7 @@
             </div>
             <div class="row">
               <div class="col-md-6">
-                <p>ID : {{ property.property_id }}</p>
+                <p>ID : {{ property.id }}</p>
               </div>
               <div class="col-md-6">
                 <p>Landlord ID : {{ property.landlord }}</p>
@@ -30,10 +30,10 @@
             {% for enquiry in property.enquiries %}
             <div class="row">
               <div class="col-md-4">
-                <p>Enquiry Id: {{enquiry.enquiry_id}}</p>
+                <p>Enquiry Id: {{enquiry.id}}</p>
               </div>
               <div class="col-md-4">
-                <p>Property Id: {{enquiry.property_id}}</p>
+                <p>Property Id: {{enquiry.id}}</p>
               </div>
               <div class="col-md-4">
                 <p>Enquirer Id: {{enquiry.enquirer_id}}</p>

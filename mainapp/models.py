@@ -26,6 +26,7 @@ class Properties(models.Model):
 	rent = models.CharField(max_length=100)
 	rooms = models.CharField(max_length=1)
 	landlord = models.ForeignKey(User,on_delete=models.CASCADE)
+	#enquiry = models.ForeignKey(Enquiries,on_delete=models.CASCADE)
 
 	def __str__(self):
 		return self.property_name

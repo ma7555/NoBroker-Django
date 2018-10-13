@@ -3,6 +3,7 @@ from django.contrib.auth.models import Group
 from .models import *
 from .forms import *
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 #All views are here
 
 #Views For Auth Section
@@ -44,7 +45,7 @@ def calculate_property(request):
 @login_required
 def landlord_properties(request):
 	properties_list = Properties.objects.filter(pk=request.user.id)
-	return render(request,'landlord/lproperties.html',{'properties':properties_list})
+	return render(request,'landlord/lproperties.html',{'properties':properties_list},)
 
 @login_required
 def custom_property_page(request, user_id, property_id):
@@ -61,6 +62,18 @@ def landlord_enquiries(request):
 def tenant_enquiries(request):
 	enquiries = Enquiries.objects.filter(enquirer=request.user)
 	return render(request,'landlord/lenquiries.html',{'enquiries':enquiries})
+
+@login_required
+def tenant_property_page(request,user_id, property_id):
+	property_details = Properties.objects.get(pk=property_id)
+	return render(request,'tenant/property_details.html',{'property':property_details})
+
+@login_required
+def send_enquiry(request, user_id, property_id):
+	p = Properties.objects.get(pk=property_id)
+	e = Enquiries(enquirer=request.user, property=p)
+	e.save()
+	return HttpResponse("Enquiry Sent")
 
 #Views for home page
 def index(request):
@@ -80,6 +93,10 @@ def index(request):
 
 def search_result(request):
 	return render(request, 'home/results.html')
+
+def search_property_page(request, property_id):
+	property_details = Properties.objects.get(pk=property_id)
+	return render(request,'home/property_details.html',{'property':property_details})
 
 def contact(request):
 	return render(request, 'home/contact.html')
