@@ -18,7 +18,10 @@ from django.urls import include, path
 
 #Add url file of any app created
 urlpatterns = [
+	#Url for auth paths
 	path('', include('django.contrib.auth.urls')),
+	#Url for mainapp
 	path('', include('mainapp.urls')),
+	#Url for admin
     path('admin/', admin.site.urls),
 ]
